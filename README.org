@@ -1,0 +1,20 @@
+* Skratchpad
+
+** Overview
+Tired of emailing yourself quick little notes or links they you wanna
+read more about once your off your phone? Keep them in the cloud with
+Skratchpad! Backbone was at the core of Skratchpads user interface,
+borrowed heavily from the TodoMVC application, while Twitter bootstrap
+was used to style it. Express running on node with a mongodb data
+store was used to save client data on the backend.
+
+** Client
+*** app/index.html app/template.css
+    Main view of the client using twitter Bootstrap for styling.
+*** app/skratchpad.js
+    Client models and collections stored here.
+
+** Server
+*** server.js
+    Express REST web server connected to mongodb for data.
+    

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+
+<link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,300'
+      rel='stylesheet' type='text/css'>
+    <title>Skratchpad</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="template.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          Skratchpad
+<a class="navbar-brand" href="#"></a>
+
+        </div>
+      </div>
+    </div>
+    <div class="container">
+<div id="skratchapp">
+
+    <header>
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+      <!--h1>Skratchpad</h1-->
+
+      <input class="col-md-12" id="new-skratch" type="text"
+             placeholder="Type your text here...">
+      <!--a class="btn btn-default col-md-3">L</a-->
+        </div>
+      </div>
+    </header>
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+    <section id="main">
+      <ul id="skratch-list" class="list-group"></ul>
+    </section>
+        </div>
+      </div>
+    <footer>
+    </footer>
+
+  </div>
+
+
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+
+  <script src="./vendor/json2/json2.js"></script>
+  <script src="./vendor/jquery/jquery.js"></script>
+  <script src="./vendor/underscore/underscore.js"></script>
+  <script src="./vendor/backbone/backbone.js"></script>
+    <script src="./vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!--script src="../backbone/examples/backbone.localStorage.js"></script-->
+  <script src="./vendor/moment/moment.js"></script>
+  <script src="skratchpad.js"></script>
+
+  <!-- Templates -->
+
+  <script type="text/template" id="skratch-template">
+
+    <div class="view">
+    <div class="row">
+      <div class="col-md-7 col-xs-8">
+      <div class="text"><%= text %></div>
+
+      <span class="timestamp">
+        <%= moment(timestamp).format('MMMM Do YYYY, h:mm:ss a')%>
+      </span>
+
+
+      </div>
+
+      <div class="col-md-5 col-xs-4 controls">
+      <a class="update btn btn-warning "><span class="glyphicon glyphicon-pencil"></span></a>
+      <a class="destroy btn btn-danger "><span class="glyphicon
+      glyphicon-remove-sign"></span></a>
+      </div>
+          </div>
+    </div>
+
+        <input class="edit col-md-12" type="text" value="<%- text %>" />
+  </script>
+  </body>
+</html>

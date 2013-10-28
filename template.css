@@ -1,0 +1,73 @@
+body {
+  padding-top: 50px;
+  font-family: 'Merriweather Sans', sans-serif;
+}
+.starter-template {
+  padding: 60px 15px;
+  text-align: center;
+}
+
+#skratchapp {
+    margin-top: 45px;
+}
+
+.navbar-header {
+//    font-family: 'Press Start 2P', cursive;
+    width:100%;
+    // margin:0px auto;
+    color:#FFF;
+font-size:40px;
+text-align: center;
+padding-top: 10px;
+    padding-bottom: 15px;
+}
+
+.navbar-brand {
+font-size:40px;
+text-align: center;
+//
+}
+
+#new-skratch {
+	display: block;
+	padding: 13px 15px 14px 20px;
+}
+
+
+#skratch-list li .text {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#skratch-list li .timestamp {
+    font-size: 12px;
+}
+
+#skratch-list li.editing {
+	border-bottom: none;
+	margin-top: -1px;
+	padding: 0;
+}
+
+#skratch-list li.editing:last-child {
+	margin-bottom: -1px;
+}
+
+#skratch-list li.editing .edit {
+	display: block;
+	// width: 444px;
+	padding: 13px 15px 14px 20px;
+	// margin: 0;
+}
+
+#skratch-list li.editing .view {
+	display: none;
+}
+
+#skratch-list li .view label {
+	word-break: break-word;
+}
+
+#skratch-list li .edit {
+	display: none;
+}

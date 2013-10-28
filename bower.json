@@ -1,0 +1,13 @@
+{
+  "name": "skratchpad components",
+  "version": "0.1.0",
+  "dependencies": {
+    "json2": null,
+    "jquery": null,
+    "underscore": null,
+    "backbone": null,
+    "backbone.localStorage": null,
+    "moment": null,
+    "bootstrap": null
+  }
+}
