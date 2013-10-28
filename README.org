@@ -1,5 +1,12 @@
 * Skratchpad
-
+#+BEGIN_SRC sh
+git clone https://github.com/ebaker/skratchpad.git
+npm install bower -g
+bower install
+node server.js &
+open index.html
+#+END_SRC
+  
 ** Overview
 Tired of emailing yourself quick little notes or links they you wanna
 read more about once your off your phone? Keep them in the cloud with
