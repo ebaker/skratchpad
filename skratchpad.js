@@ -13,7 +13,7 @@ $(function(){
         defaults: function() {
             return {
                 text: 'empty text...',
-                timestamp: new Date().getTime() 
+                date_created: new Date().getTime() 
             };
         },
        idAttribute: "_id"
@@ -25,8 +25,8 @@ $(function(){
         model: Skratch,
 
 
-        //url: 'http://localhost:8080/skratches'
-        url: 'http://skratchpadapi.eliotbaker.com/skratches'
+        url: 'http://localhost:8080/skratches'
+        //url: 'http://skratchpadapi.eliotbaker.com/skratches'
         // localStorage: new Backbone.LocalStorage("skratches-backbone")
     });
 
