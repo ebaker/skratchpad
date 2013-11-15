@@ -39,8 +39,8 @@ text-align: center;
     font-weight: bold;
 }
 
-#skratch-list li .timestamp {
-    font-size: 12px;
+#skratch-list li .date_created {
+    font-size: 10px;
 }
 
 #skratch-list li.editing {
