@@ -1,0 +1,25 @@
+{
+  "name": "skratchpad",
+  "version": "0.0.0",
+  "description": "* Skratchpad #+BEGIN_SRC sh git clone https://github.com/ebaker/skratchpad.git npm install bower -g bower install node server.js & open index.html #+END_SRC",
+  "main": "skratchpad.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ebaker/skratchpad.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/ebaker/skratchpad/issues"
+  },
+  "homepage": "https://github.com/ebaker/skratchpad",
+  "dependencies": {
+    "mongoose": "latest",
+    "restify": "latest",
+    "bower": "latest"
+  }
+}
