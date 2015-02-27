@@ -8,10 +8,10 @@ open 'http://localhost:3000'
 #+END_SRC
   
 ** 2015 Update
-The concept of this app originated in 2013 to create a notebook to learn about
-creating a real-time single page web app using backbone js, express
-REST API, and mongodb for storage. The server was updated in 2015 for
-ease of hosting along with the advent of express 4.
+The concept of this app originated in 2013 as a way to learn about
+creating real-time single page web applications using backbone js, express as a
+REST API, and mongodb for storage. The server was updated in 2015 
+to use express 4.
   
 ** Original Overview
 
