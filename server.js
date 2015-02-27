@@ -1,109 +1,107 @@
 var mongoose = require('mongoose/');
 var config = require('./config');
-var restify = require('restify');
+var express = require('express');
+var bodyParser = require('body-parser');
 
 // Mongoose db setup
 // ----------
 db = mongoose.connect(config.creds.mongoose_auth_local),
 Schema = mongoose.Schema;  
 
-// Restify server setup
-// ---------
-var server = restify.createServer({
-  name: 'skratchpad',
-  version: '1.0.0'
-});
-server.use(restify.acceptParser(server.acceptable));
-server.use(restify.queryParser());
-server.use(restify.bodyParser());
-
-
 // Mongoose Schema
-// ---------
-// Create a schema for our data
 var SkratchSchema = new Schema({
   text: String,
   date_created: Date
 });
 
-// Use the schema to register a model
+// Use the schema to register a model, not backbone model
 mongoose.model('Skratch', SkratchSchema); 
-var SkratchMongooseModel = mongoose.model('Skratch'); // just to emphasize this isn't a Backbone Model
+var SkratchMongooseModel = mongoose.model('Skratch');
 
-// Echo server exampl
-// -----
-// server.get('/echo/:name', function (req, res, next) {
-//   res.send(req.params);
-//   return next();
-// });
+// Express server setup
+// ---------
+var server = express();
+server.use(bodyParser.urlencoded({extended: true}));
+server.use(bodyParser.json());
+server.use(express.static(__dirname + '/public'));
+server.use('/vendor', express.static(__dirname + '/vendor'));
 
+var port = process.env.PORT || 8080;
+var api = express.Router();
 
-// Restify routes
-// --------
+// Expressk routes
 // GET
-server.get('/skratches', function(req, res, next) {
-    console.log('get');
-    // Resitify currently has a bug which doesn't allow you to set default headers
-    // This headers comply with CORS and allow us to mongodbServer our response to any origin
-    res.header( 'Access-Control-Allow-Origin', '*' );
-    res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
-    res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
-    // .sort('date_created', -1)
-    SkratchMongooseModel.find().execFind(function (arr,data) {
-        res.send(data);
-    });
+api.get('/skratches', function(req, res, next) {
+    console.log('get /skratches');
+    SkratchMongooseModel.find(function (err, data) {
+        if (!err){
+          res.send(data);
+        }
+        else {
+          console.log('Error in get %s', err);
+          res.send(400);
+        }
+    })
 });
 
 // POST
-server.post('/skratches', function(req, res, next) {
-    res.header( 'Access-Control-Allow-Origin', '*' );
-    res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
-    res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
+api.post('/skratches', function(req, res, next) {
+
     // Create a new skratch model, fill it up and save it to Mongodb
     var skratch = new SkratchMongooseModel();
     skratch.text = 'empty text...';
-    //console.log(req.params);
-    skratch.text = req.params.text;
+    skratch.text = req.body.text;
     skratch.date_created = new Date();
-    skratch.save(function () {
-        res.send(req.body);
+    skratch.save(function (err, data) {
+        if (!err) {
+          console.log('create');
+          res.send(req.body);
+        }
+        else {
+          console.log('Error saving %s', err);
+          res.send(400);
+        }
     });
 });
 
 // PUT
-server.put('/skratches/:id', function(req, res, next) {
-    // console.log('update');
-    res.header( 'Access-Control-Allow-Origin', '*' );
-    res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
-    res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
+api.put('/skratches/:id', function(req, res, next) {
+
     return SkratchMongooseModel.findById(req.params.id, function(err, skratch){
-        skratch.text = req.params.text;
+        skratch.text = req.body.text;
         return skratch.save(function(err){
             if (!err) {
+                console.log("update");
                 res.send(204);
-                return console.log("updated");
+            }
+            else {
+              console.log('Error updating %s', err);
+              res.send(400);
             }
         });
     });    
 });
 
 // DELETE
-server.del('/skratches/:id', function(req, res) {
-    // console.log('del');
-    res.header( 'Access-Control-Allow-Origin', '*' );
-    res.header( 'Access-Control-Allow-Method', 'POST, GET, PUT, DELETE, OPTIONS' );
-    res.header( 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-File-Name, Content-Type, Cache-Control' );
+api.delete('/skratches/:id', function(req, res) {
     return SkratchMongooseModel.findById(req.params.id, function(err, skratch){
         return skratch.remove(function(err) {
             if (!err) {
+                console.log("delete");
                 res.send(204);
-                return console.log("removed");
+            }
+            else {
+              console.log('Error deleting %s', err);
+              res.send(400);
             }
         });
     });
 });
 
+// Register API route
+server.use('/api', api);
+
 // START LISTENER
-server.listen(8080, function () {
-  console.log('%s listening at %s', server.name, server.url);
+server.listen(port, function () {
+  console.log('listening on %s', port);
 });

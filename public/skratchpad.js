@@ -24,9 +24,7 @@ $(function(){
     var SkratchList = Backbone.Collection.extend({
         model: Skratch,
 
-
-        url: 'http://localhost:8080/skratches'
-        //url: 'http://skratchpadapi.eliotbaker.com/skratches'
+        url: '/api/skratches'
         // localStorage: new Backbone.LocalStorage("skratches-backbone")
     });
 
