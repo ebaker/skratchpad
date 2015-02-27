@@ -26,9 +26,8 @@ store was used to save client data on the backend.
 *** public/index.html public/template.css
     Main view of the client using twitter Bootstrap for styling.
 *** public/skratchpad.js
-    Client models and collections stored here.
+    Client backbone models and collections stored here.
 
 ** Server
 *** server.js
-    Express REST web server connected to mongodb for data.
-    
+    Express web server for REST API connected to mongodb for data.
