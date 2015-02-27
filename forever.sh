@@ -1,2 +1,3 @@
 #!/bin/sh
-forever start serverjs -o /tmp/skratchpad-out.log -e /tmp/skratchpad-error.log
+export PORT=4001
+forever start server.js -o /tmp/skratchpad-out.log -e /tmp/skratchpad-error.log

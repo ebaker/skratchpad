@@ -1,13 +1,20 @@
 * Skratchpad
 #+BEGIN_SRC sh
 git clone https://github.com/ebaker/skratchpad.git
-npm install bower -g
+npm install
 bower install
 node server.js &
-open index.html
+open 'http://localhost:3000'
 #+END_SRC
   
-** Overview
+** 2015 Update
+The concept of this app originated in 2013 as a way to learn about
+creating real-time single page web applications using backbone js, express as a
+REST API, and mongodb for storage. The server was updated in 2015 
+to use express 4.
+  
+** Original Overview
+
 Tired of emailing yourself quick little notes or links they you wanna
 read more about once your off your phone? Keep them in the cloud with
 Skratchpad! Backbone was at the core of Skratchpads user interface,
@@ -16,12 +23,11 @@ was used to style it. Express running on node with a mongodb data
 store was used to save client data on the backend.
 
 ** Client
-*** app/index.html app/template.css
+*** public/index.html public/template.css
     Main view of the client using twitter Bootstrap for styling.
-*** app/skratchpad.js
-    Client models and collections stored here.
+*** public/skratchpad.js
+    Client backbone models and collections stored here.
 
 ** Server
 *** server.js
-    Express REST web server connected to mongodb for data.
-    
+    Express web server for REST API connected to mongodb for data.

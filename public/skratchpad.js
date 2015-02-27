@@ -2,33 +2,31 @@
 // -------
 // A place to jot your notes and knowledge
 // Inspired by TodoMVC contributed by
-// [Jérôme Gravel-Niquet](http://jgn.me/). 
+// [Jérôme Gravel-Niquet](http://jgn.me/).
 
 // Load the application once the DOM is ready, using `jQuery.ready`:
 $(function(){
 
   // Skratch Model
   // --------
-   var Skratch = Backbone.Model.extend({
-        defaults: function() {
-            return {
-                text: 'empty text...',
-                date_created: new Date().getTime() 
-            };
-        },
-       idAttribute: "_id"
-    });
+  var Skratch = Backbone.Model.extend({
+    defaults: function() {
+      return {
+        text: 'empty text...',
+        date_created: new Date().getTime()
+      };
+    },
+    idAttribute: "_id"
+  });
 
   // SkratchList
-  // -------   
-    var SkratchList = Backbone.Collection.extend({
-        model: Skratch,
+  // -------
+  var SkratchList = Backbone.Collection.extend({
+    model: Skratch,
 
-
-        url: 'http://localhost:8080/skratches'
-        //url: 'http://skratchpadapi.eliotbaker.com/skratches'
-        // localStorage: new Backbone.LocalStorage("skratches-backbone")
-    });
+    url: '/api/skratches'
+    // localStorage: new Backbone.LocalStorage("skratches-backbone")
+  });
 
   var Skratches = new SkratchList();
 
@@ -145,18 +143,3 @@ $(function(){
   var App = new AppView;
 
 });
-
-
-// Skratchpad Tasks
-// --------------
-// - [x] create skratch note item
-// - [x] view previous skratch note items
-// - [x] style it with the bootstrapz
-//       - [x] use edit button instead of doubleclick
-//       - [c] create larger text input box
-//       - [c] make text size smaller
-//       - [x] allow for full text to be seen, enlargening note
-//       - [ ] review mobile version
-// - [x] put it on a server
-// - [ ] throw users on it - passport?
-// - [ ] log server interactions that could be human readable

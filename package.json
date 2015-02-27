@@ -18,8 +18,8 @@
   },
   "homepage": "https://github.com/ebaker/skratchpad",
   "dependencies": {
-    "mongoose": "latest",
-    "restify": "latest",
-    "bower": "latest"
+    "body-parser": "^1.12.0",
+    "express": "^4.12.0",
+    "mongoose": "^3.8.24"
   }
 }
