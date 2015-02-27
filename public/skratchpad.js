@@ -143,18 +143,3 @@ $(function(){
   var App = new AppView;
 
 });
-
-
-// Skratchpad Tasks
-// --------------
-// - [x] create skratch note item
-// - [x] view previous skratch note items
-// - [x] style it with the bootstrapz
-//       - [x] use edit button instead of doubleclick
-//       - [c] create larger text input box
-//       - [c] make text size smaller
-//       - [x] allow for full text to be seen, enlargening note
-//       - [ ] review mobile version
-// - [x] put it on a server
-// - [ ] throw users on it - passport?
-// - [ ] log server interactions that could be human readable

@@ -37,32 +37,34 @@
       </div>
     </div>
     <div class="container">
+
+      <!-- SKRATCHPAD APP -->
       <div id="skratchapp">
 
         <header>
           <div class="row">
             <div class="col-md-4 col-md-offset-4">
-              <!--h1>Skratchpad</h1-->
 
               <input class="col-md-12" id="new-skratch" type="text"
                      placeholder="Type your text here...">
-              <!--a class="btn btn-default col-md-3">L</a-->
             </div>
           </div>
         </header>
+
         <div class="row">
           <div class="col-md-4 col-md-offset-4">
             <section id="main">
+
+              <!-- SKRATCH LIST -->
               <ul id="skratch-list" class="list-group"></ul>
             </section>
           </div>
         </div>
+
         <footer>
         </footer>
 
       </div>
-
-
 
     </div><!-- /.container -->
 
@@ -70,8 +72,6 @@
     <!-- Bootstrap core JavaScript
          ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-
-
 
     <script src="./vendor/json2/json2.js"></script>
     <script src="./vendor/jquery/dist/jquery.min.js"></script>
@@ -85,23 +85,22 @@
     <!-- Templates -->
 
     <script type="text/template" id="skratch-template">
-
       <div class="view">
         <div class="row">
           <div class="col-md-7 col-xs-8">
             <div class="text"><%= text %></div>
-
             <span class="date_created">
               <%= moment(date_created).format('MMMM Do YYYY, h:mm:ss a')%>
             </span>
-
-
           </div>
 
           <div class="col-md-5 col-xs-4 controls">
-            <a class="update btn btn-warning "><span class="glyphicon glyphicon-pencil"></span></a>
-            <a class="destroy btn btn-danger "><span class="glyphicon
-                                                            glyphicon-remove-sign"></span></a>
+            <a class="destroy btn btn-danger pull-right">
+              <span class="glyphicon glyphicon-remove-sign"></span>
+            </a>
+            <a class="update btn btn-warning pull-right">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </a>
           </div>
         </div>
       </div>
