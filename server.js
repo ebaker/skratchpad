@@ -55,7 +55,7 @@ api.post('/skratches', function(req, res, next) {
     skratch.save(function (err, data) {
         if (!err) {
           console.log('create');
-          res.send(req.body);
+          res.send(data);
         }
         else {
           console.log('Error saving %s', err);
@@ -66,6 +66,7 @@ api.post('/skratches', function(req, res, next) {
 
 // PUT
 api.put('/skratches/:id', function(req, res, next) {
+  console.log('putting', req.params.id);
 
     return SkratchMongooseModel.findById(req.params.id, function(err, skratch){
         skratch.text = req.body.text;
