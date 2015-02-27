@@ -26,7 +26,7 @@ server.use(bodyParser.json());
 server.use(express.static(__dirname + '/public'));
 server.use('/vendor', express.static(__dirname + '/vendor'));
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 var api = express.Router();
 
 // Expressk routes
