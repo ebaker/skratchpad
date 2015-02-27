@@ -7,9 +7,9 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.png">
 
-<link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,300'
-      rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:400,300'
+          rel='stylesheet' type='text/css'>
     <title>Skratchpad</title>
 
     <!-- Bootstrap core CSS -->
@@ -20,9 +20,9 @@
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
+        <script src="../../assets/js/html5shiv.js"></script>
+        <script src="../../assets/js/respond.min.js"></script>
+        <![endif]-->
   </head>
 
   <body>
@@ -31,36 +31,36 @@
       <div class="container">
         <div class="navbar-header">
           Skratchpad
-<a class="navbar-brand" href="#"></a>
+          <a class="navbar-brand" href="#"></a>
 
         </div>
       </div>
     </div>
     <div class="container">
-<div id="skratchapp">
+      <div id="skratchapp">
 
-    <header>
-      <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-      <!--h1>Skratchpad</h1-->
+        <header>
+          <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+              <!--h1>Skratchpad</h1-->
 
-      <input class="col-md-12" id="new-skratch" type="text"
-             placeholder="Type your text here...">
-      <!--a class="btn btn-default col-md-3">L</a-->
+              <input class="col-md-12" id="new-skratch" type="text"
+                     placeholder="Type your text here...">
+              <!--a class="btn btn-default col-md-3">L</a-->
+            </div>
+          </div>
+        </header>
+        <div class="row">
+          <div class="col-md-4 col-md-offset-4">
+            <section id="main">
+              <ul id="skratch-list" class="list-group"></ul>
+            </section>
+          </div>
         </div>
-      </div>
-    </header>
-      <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-    <section id="main">
-      <ul id="skratch-list" class="list-group"></ul>
-    </section>
-        </div>
-      </div>
-    <footer>
-    </footer>
+        <footer>
+        </footer>
 
-  </div>
+      </div>
 
 
 
@@ -68,45 +68,45 @@
 
 
     <!-- Bootstrap core JavaScript
-    ================================================== -->
+         ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
 
 
-  <script src="./vendor/json2/json2.js"></script>
-  <script src="./vendor/jquery/dist/jquery.min.js"></script>
-  <script src="./vendor/underscore/underscore.js"></script>
-  <script src="./vendor/backbone/backbone.js"></script>
+    <script src="./vendor/json2/json2.js"></script>
+    <script src="./vendor/jquery/dist/jquery.min.js"></script>
+    <script src="./vendor/underscore/underscore.js"></script>
+    <script src="./vendor/backbone/backbone.js"></script>
     <script src="./vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-  <!--script src="../backbone/examples/backbone.localStorage.js"></script-->
-  <script src="./vendor/moment/moment.js"></script>
-  <script src="skratchpad.js"></script>
+    <!--script src="../backbone/examples/backbone.localStorage.js"></script-->
+    <script src="./vendor/moment/moment.js"></script>
+    <script src="skratchpad.js"></script>
 
-  <!-- Templates -->
+    <!-- Templates -->
 
-  <script type="text/template" id="skratch-template">
+    <script type="text/template" id="skratch-template">
 
-    <div class="view">
-    <div class="row">
-      <div class="col-md-7 col-xs-8">
-      <div class="text"><%= text %></div>
+      <div class="view">
+        <div class="row">
+          <div class="col-md-7 col-xs-8">
+            <div class="text"><%= text %></div>
 
-      <span class="date_created">
-        <%= moment(date_created).format('MMMM Do YYYY, h:mm:ss a')%>
-      </span>
+            <span class="date_created">
+              <%= moment(date_created).format('MMMM Do YYYY, h:mm:ss a')%>
+            </span>
 
 
-      </div>
-
-      <div class="col-md-5 col-xs-4 controls">
-      <a class="update btn btn-warning "><span class="glyphicon glyphicon-pencil"></span></a>
-      <a class="destroy btn btn-danger "><span class="glyphicon
-      glyphicon-remove-sign"></span></a>
-      </div>
           </div>
-    </div>
 
-        <input class="edit col-md-12" type="text" value="<%- text %>" />
-  </script>
+          <div class="col-md-5 col-xs-4 controls">
+            <a class="update btn btn-warning "><span class="glyphicon glyphicon-pencil"></span></a>
+            <a class="destroy btn btn-danger "><span class="glyphicon
+                                                            glyphicon-remove-sign"></span></a>
+          </div>
+        </div>
+      </div>
+
+      <input class="edit col-md-12" type="text" value="<%- text %>" />
+    </script>
   </body>
 </html>

@@ -2,31 +2,31 @@
 // -------
 // A place to jot your notes and knowledge
 // Inspired by TodoMVC contributed by
-// [Jérôme Gravel-Niquet](http://jgn.me/). 
+// [Jérôme Gravel-Niquet](http://jgn.me/).
 
 // Load the application once the DOM is ready, using `jQuery.ready`:
 $(function(){
 
   // Skratch Model
   // --------
-   var Skratch = Backbone.Model.extend({
-        defaults: function() {
-            return {
-                text: 'empty text...',
-                date_created: new Date().getTime() 
-            };
-        },
-       idAttribute: "_id"
-    });
+  var Skratch = Backbone.Model.extend({
+    defaults: function() {
+      return {
+        text: 'empty text...',
+        date_created: new Date().getTime()
+      };
+    },
+    idAttribute: "_id"
+  });
 
   // SkratchList
-  // -------   
-    var SkratchList = Backbone.Collection.extend({
-        model: Skratch,
+  // -------
+  var SkratchList = Backbone.Collection.extend({
+    model: Skratch,
 
-        url: '/api/skratches'
-        // localStorage: new Backbone.LocalStorage("skratches-backbone")
-    });
+    url: '/api/skratches'
+    // localStorage: new Backbone.LocalStorage("skratches-backbone")
+  });
 
   var Skratches = new SkratchList();
 
