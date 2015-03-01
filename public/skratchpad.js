@@ -11,6 +11,15 @@ app.directive('skratchpad', function(skratchesFactory) {
       });
     },
     controller: function($scope) {
+      onId = function(id, cb){
+        for (var i = 0; i < $scope.skratches.length; i++){
+          if ($scope.skratches[i]._id == id) {
+            skratch = $scope.skratches[i];
+            skratch.text = $scope.updated;
+            cb(i, skratch);
+          }
+        }
+      }
       $scope.addSkratch = function(){
         skratchesFactory.post({text: $scope.text}).then(function(data){
           $scope.skratches.unshift(data);
@@ -19,15 +28,20 @@ app.directive('skratchpad', function(skratchesFactory) {
       $scope.updateSkratch = function(id){
         skratchesFactory.put(id, {text:$scope.updated}).then(function(status){
           if (status == 204){
-            for (var i = 0; i < $scope.skratches.length; i++){
-              if ($scope.skratches[i]._id == id) {
-                skratch = $scope.skratches[i];
-                skratch.text = $scope.updated;
-                $scope.skratches[i] = skratch;
-              }
-            }
+            onId(id, function(index, skratch){
+              $scope.skratches[index] = skratch;
+            });
           }
-        })
+        });
+      };
+      $scope.removeSkratch = function(id){
+        skratchesFactory.del(id).then(function(status){
+          if (status == 204){
+            onId(id, function(index, skratch){
+              $scope.skratches.splice(index, 1);
+            });
+          }
+        });
       };
     },
     templateUrl: 'skratchpad.html'
@@ -37,6 +51,7 @@ app.directive('skratchpad', function(skratchesFactory) {
 app.directive('skratch', function() {
   return {
     restrict: 'C',
+    require: '^skratchpad',
     link: function(scope, elem, attr){
       scope.editing = function() {
         elem.addClass('editing');
@@ -44,6 +59,9 @@ app.directive('skratch', function() {
       };
       scope.doneEditing = function() {
         elem.removeClass('editing');
+      };
+      scope.remove = function() {
+        scope.$parent.removeSkratch(scope.skratch._id);
       };
     }
   }
@@ -99,8 +117,16 @@ app.factory('skratchesFactory', function($http, $q) {
         defer.resolve(null);
       });
       return defer.promise;
+    },
+    del: function(id) {
+      var defer = $q.defer()
+      $http.delete('/api/skratches/'+id).success(function(data, status){
+        defer.resolve(status);
+      }).error(function() {
+        defer.resolve(null);
+      });
+      return defer.promise;
     }
-
   }
 });
 
