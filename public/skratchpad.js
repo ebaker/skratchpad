@@ -15,9 +15,37 @@ app.directive('skratchpad', function(skratchesFactory) {
         skratchesFactory.post({text: $scope.text}).then(function(data){
           $scope.skratches.unshift(data);
         });
-      }
+      };
+      $scope.updateSkratch = function(id){
+        skratchesFactory.put(id, {text:$scope.updated}).then(function(status){
+          if (status == 204){
+            for (var i = 0; i < $scope.skratches.length; i++){
+              if ($scope.skratches[i]._id == id) {
+                skratch = $scope.skratches[i];
+                skratch.text = $scope.updated;
+                $scope.skratches[i] = skratch;
+              }
+            }
+          }
+        })
+      };
     },
     templateUrl: 'skratchpad.html'
+  }
+});
+
+app.directive('skratch', function() {
+  return {
+    restrict: 'C',
+    link: function(scope, elem, attr){
+      scope.editing = function() {
+        elem.addClass('editing');
+        $(elem).find('input').focus();
+      };
+      scope.doneEditing = function() {
+        elem.removeClass('editing');
+      };
+    }
   }
 });
 
@@ -28,8 +56,14 @@ app.directive('ngEnter', function () {
     link: function (scope, element, attrs, SkratchpadCtrl) {
     element.bind("keydown keypress", function (event) {
       if(event.which === 13) {
+        scope.$parent.updated = element.val();
+        if (attrs.ngEnter.indexOf('addSkratch') > -1){
+          element.val('');
+        }
+        else if (attrs.ngEnter.indexOf('updateSkratch') > -1){
+          $(element).blur();
+        }
         scope.$eval(attrs.ngEnter);
-        element.val('');
         event.preventDefault();
         }
     });
@@ -56,9 +90,17 @@ app.factory('skratchesFactory', function($http, $q) {
         defer.resolve(null);
       });
       return defer.promise;
-   
+    },
+    put: function(id, data) {
+      var defer = $q.defer()
+      $http.put('/api/skratches/'+id, data).success(function(data, status){
+        defer.resolve(status);
+      }).error(function() {
+        defer.resolve(null);
+      });
+      return defer.promise;
     }
-  }
 
+  }
 });
 

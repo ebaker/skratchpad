@@ -16,7 +16,7 @@
 
       <!-- SKRATCH LIST -->
       <ul id="skratch-list" class="list-group">
-        <li class="list-group-item" ng-repeat="skratch in skratches">
+        <li class="skratch list-group-item" ng-repeat="skratch in skratches">
         <div class="view">
           <div class="row">
             <div class="col-md-7 col-xs-8">
@@ -30,14 +30,17 @@
               <a class="destroy btn btn-danger pull-right">
                 <span class="glyphicon glyphicon-remove-sign"></span>
               </a>
-              <a class="update btn btn-warning pull-right">
+              <a ng-click="editing()" class="update btn btn-warning pull-right">
                 <span class="glyphicon glyphicon-pencil"></span>
               </a>
             </div>
           </div>
         </div>
         
-        <input class="edit col-md-12" type="text" value="{{skratch.text}}" />
+        <input class="edit col-md-12" type="text"
+        ng-enter="updateSkratch('{{skratch._id}}')"
+        ng-blur="doneEditing()"
+        value="{{skratch.text}}" />
         </li>
 
       </ul>
