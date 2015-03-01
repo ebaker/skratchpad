@@ -36,11 +36,11 @@ api.get('/skratches', function(req, res, next) {
   var criteria = {$query: {}, $orderby: {date_created: -1}};
   SkratchMongooseModel.find(criteria, function (err, data) {
     if (!err){
-      res.send(data);
+      res.status(200).send(data);
     }
     else {
       console.log('Error in get %s', err);
-      res.send(400);
+      res.status(400).send();
     }
   })
 });
@@ -56,11 +56,11 @@ api.post('/skratches', function(req, res, next) {
   skratch.save(function (err, data) {
     if (!err) {
       console.log('create');
-      res.send(data);
+      res.status(200).send(data);
     }
     else {
       console.log('Error saving %s', err);
-      res.send(400);
+      res.status(400).send();
     }
   });
 });
@@ -74,11 +74,11 @@ api.put('/skratches/:id', function(req, res, next) {
     return skratch.save(function(err){
       if (!err) {
         console.log("update");
-        res.send(204);
+        res.status(204).send();
       }
       else {
         console.log('Error updating %s', err);
-        res.send(400);
+        res.status(400).send();
       }
     });
   });
@@ -90,11 +90,11 @@ api.delete('/skratches/:id', function(req, res) {
     return skratch.remove(function(err) {
       if (!err) {
         console.log("delete");
-        res.send(204);
+        res.status(204).send();
       }
       else {
         console.log('Error deleting %s', err);
-        res.send(400);
+        res.status(400).send();
       }
     });
   });
