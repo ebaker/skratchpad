@@ -33,7 +33,8 @@ var api = express.Router();
 // GET
 api.get('/skratches', function(req, res, next) {
   console.log('get /skratches');
-  SkratchMongooseModel.find(function (err, data) {
+  var criteria = {$query: {}, $orderby: {date_created: -1}};
+  SkratchMongooseModel.find(criteria, function (err, data) {
     if (!err){
       res.send(data);
     }
