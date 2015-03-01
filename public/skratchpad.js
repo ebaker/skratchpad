@@ -1,5 +1,9 @@
 var app = angular.module('skratchpadApp', []);
 
+// Skratchpad Directive
+// ----------
+// Container directive for CRUD operations on skratches
+// 
 app.directive('skratchpad', function(skratchesFactory) {
   return {
     scope: {},
@@ -49,6 +53,10 @@ app.directive('skratchpad', function(skratchesFactory) {
   }
 });
 
+// Skratch Directive
+// ----------
+// single skratch template and edit/delete handlers
+//
 app.directive('skratch', function() {
   return {
     restrict: 'E',
@@ -70,6 +78,7 @@ app.directive('skratch', function() {
   }
 });
 
+// Keypress Enter Directive
 app.directive('ngEnter', function () {
   return {
     restict: 'A',
@@ -92,6 +101,10 @@ app.directive('ngEnter', function () {
   };
 });
 
+// Factory for REST API resources
+// ----------
+// CRUD with $http and promises
+//
 app.factory('skratchesFactory', function($http, $q) {
   return {
     getAll: function() {
