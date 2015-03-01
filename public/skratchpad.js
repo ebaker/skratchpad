@@ -45,7 +45,7 @@ app.directive('skratchpad', function(skratchesFactory) {
         });
       };
     },
-    templateUrl: 'skratchpad.html'
+    templateUrl: 'partials/skratchpad.html'
   }
 });
 
@@ -54,7 +54,7 @@ app.directive('skratch', function() {
     restrict: 'E',
     replace: true,
     require: '^skratchpad',
-    templateUrl: 'skratch.html',
+    templateUrl: 'partials/skratch.html',
     link: function(scope, elem, attr){
       scope.editing = function() {
         elem.addClass('editing');
