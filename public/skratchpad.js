@@ -1,145 +1,148 @@
-// SkratchList
-// -------
-// A place to jot your notes and knowledge
-// Inspired by TodoMVC contributed by
-// [Jérôme Gravel-Niquet](http://jgn.me/).
+var app = angular.module('skratchpadApp', []);
 
-// Load the application once the DOM is ready, using `jQuery.ready`:
-$(function(){
-
-  // Skratch Model
-  // --------
-  var Skratch = Backbone.Model.extend({
-    defaults: function() {
-      return {
-        text: 'empty text...',
-        date_created: new Date().getTime()
+// Skratchpad Directive
+// ----------
+// Container directive for CRUD operations on skratches
+// 
+app.directive('skratchpad', function(skratchesFactory) {
+  return {
+    scope: {},
+    restrict: 'E',
+    replace: true,
+    transclusion: true,
+    link: function(scope, elem, attrs){
+      skratchesFactory.getAll().then(function(data){
+        scope.skratches = data;
+      });
+    },
+    controller: function($scope) {
+      onId = function(id, cb){
+        for (var i = 0; i < $scope.skratches.length; i++){
+          if ($scope.skratches[i]._id == id) {
+            skratch = $scope.skratches[i];
+            skratch.text = $scope.updated;
+            cb(i, skratch);
+          }
+        }
+      }
+      $scope.addSkratch = function(){
+        skratchesFactory.post({text: $scope.text}).then(function(data){
+          $scope.skratches.unshift(data);
+        });
+      };
+      $scope.updateSkratch = function(id){
+        skratchesFactory.put(id, {text:$scope.updated}).then(function(status){
+          if (status == 204){
+            onId(id, function(index, skratch){
+              $scope.skratches[index] = skratch;
+            });
+          }
+        });
+      };
+      $scope.removeSkratch = function(id){
+        skratchesFactory.del(id).then(function(status){
+          if (status == 204){
+            onId(id, function(index, skratch){
+              $scope.skratches.splice(index, 1);
+            });
+          }
+        });
       };
     },
-    idAttribute: "_id"
-  });
-
-  // SkratchList
-  // -------
-  var SkratchList = Backbone.Collection.extend({
-    model: Skratch,
-
-    url: '/api/skratches'
-    // localStorage: new Backbone.LocalStorage("skratches-backbone")
-  });
-
-  var Skratches = new SkratchList();
-
-  // Skratch View
-  // --------------
-
-  // The DOM element for a Skratch item...
-  var SkratchView = Backbone.View.extend({
-
-    tagName:  "li",
-
-    template: _.template($('#skratch-template').html()),
-
-    events: {
-      "click a.update"  : "edit",
-      "click a.destroy" : "clear",
-      "keypress .edit"  : "updateOnEnter",
-      "blur .edit"      : "close"
-    },
-
-    initialize: function() {
-      this.listenTo(this.model, 'change', this.render);
-      this.listenTo(this.model, 'destroy', this.remove);
-    },
-
-    render: function() {
-      this.$el.html(this.template(this.model.toJSON()));
-      this.$el.addClass('list-group-item');
-      this.input = this.$('.edit');
-      return this;
-    },
-
-    edit: function() {
-      this.$el.addClass("editing");
-      this.input.focus();
-    },
-
-    close: function() {
-      var value = this.input.val();
-      if (!value) {
-        this.clear();
-      } else {
-        this.model.save({text: value});
-        this.$el.removeClass("editing");
-      }
-    },
-
-    // If you hit `enter`, we're through editing the item.
-    updateOnEnter: function(e) {
-      if (e.keyCode == 13) this.close();
-    },
-
-    // Remove the item, destroy the model.
-    clear: function() {
-      this.model.destroy();
-    }
-
-  });
-
-  // The Application
-  // ---------------
-
-  var AppView = Backbone.View.extend({
-
-    el: $("#skratchapp"),
-
-    events: {
-      "keypress #new-skratch":  "createOnEnter"
-    },
-
-    initialize: function() {
-
-      this.input = this.$("#new-skratch");
-
-      this.listenTo(Skratches, 'add', this.addOne);
-      this.listenTo(Skratches, 'reset', this.addAll);
-      this.listenTo(Skratches, 'all', this.render);
-
-      this.footer = this.$('footer');
-      this.main = $('#main');
-
-      Skratches.fetch();
-    },
-
-    render: function() {
-      if (Skratches.length) {
-        this.main.show();
-        this.footer.show();
-      } else {
-        this.main.hide();
-        this.footer.hide();
-      }
-    },
-
-    addOne: function(skratch) {
-      var view = new SkratchView({model: skratch});
-      this.$("#skratch-list").prepend(view.render().el);
-    },
-
-    addAll: function() {
-      Skratches.each(this.addOne, this);
-    },
-
-    createOnEnter: function(e) {
-      if (e.keyCode != 13) return;
-      if (!this.input.val()) return;
-
-      Skratches.create({text: this.input.val()});
-      this.input.val('');
-    }
-
-  });
-
-  var App = new AppView;
-
+    templateUrl: 'partials/skratchpad.html'
+  }
 });
+
+// Skratch Directive
+// ----------
+// single skratch template and edit/delete handlers
+//
+app.directive('skratch', function() {
+  return {
+    restrict: 'E',
+    replace: true,
+    require: '^skratchpad',
+    templateUrl: 'partials/skratch.html',
+    link: function(scope, elem, attr){
+      scope.editing = function() {
+        elem.addClass('editing');
+        $(elem).find('input').focus();
+      };
+      scope.doneEditing = function() {
+        elem.removeClass('editing');
+      };
+      scope.remove = function() {
+        scope.$parent.removeSkratch(scope.skratch._id);
+      };
+    }
+  }
+});
+
+// Keypress Enter Directive
+app.directive('ngEnter', function () {
+  return {
+    restict: 'A',
+    require: '^skratchpad',
+    link: function (scope, element, attrs, SkratchpadCtrl) {
+    element.bind("keydown keypress", function (event) {
+      if(event.which === 13) {
+        scope.$parent.updated = element.val();
+        if (attrs.ngEnter.indexOf('addSkratch') > -1){
+          element.val('');
+        }
+        else if (attrs.ngEnter.indexOf('updateSkratch') > -1){
+          $(element).blur();
+        }
+        scope.$eval(attrs.ngEnter);
+        event.preventDefault();
+        }
+    });
+    }
+  };
+});
+
+// Factory for REST API resources
+// ----------
+// CRUD with $http and promises
+//
+app.factory('skratchesFactory', function($http, $q) {
+  return {
+    getAll: function() {
+      var defer = $q.defer()
+      $http.get('/api/skratches').success(function(data){
+        defer.resolve(data);
+      }).error(function() {
+        defer.resolve([]);
+      });
+      return defer.promise;
+    },
+    post: function(data) {
+      var defer = $q.defer()
+      $http.post('/api/skratches', data).success(function(data){
+        defer.resolve(data);
+      }).error(function() {
+        defer.resolve(null);
+      });
+      return defer.promise;
+    },
+    put: function(id, data) {
+      var defer = $q.defer()
+      $http.put('/api/skratches/'+id, data).success(function(data, status){
+        defer.resolve(status);
+      }).error(function() {
+        defer.resolve(null);
+      });
+      return defer.promise;
+    },
+    del: function(id) {
+      var defer = $q.defer()
+      $http.delete('/api/skratches/'+id).success(function(data, status){
+        defer.resolve(status);
+      }).error(function() {
+        defer.resolve(null);
+      });
+      return defer.promise;
+    }
+  }
+});
+

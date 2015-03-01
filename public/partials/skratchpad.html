@@ -1,0 +1,27 @@
+<div id="skratchapp">
+  <header>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+
+      <input class="col-md-12" id="new-skratch" type="text"
+             ng-model='text'
+             placeholder="Type your text here..." ng-enter="addSkratch()">
+    </div>
+  </div>
+</header>
+
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <section id="main">
+
+      <!-- SKRATCH LIST -->
+      <ul id="skratch-list" class="list-group">
+        <skratch  ng-repeat="skratch in skratches"></skratch>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<footer>
+</footer>
+</div>
