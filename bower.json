@@ -8,6 +8,7 @@
     "backbone": null,
     "backbone.localStorage": null,
     "moment": null,
-    "bootstrap": null
+    "bootstrap": null,
+    "angular": "~1.3.14"
   }
 }

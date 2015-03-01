@@ -1,0 +1,49 @@
+<div id="skratchapp">
+  <header>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+
+      <input class="col-md-12" id="new-skratch" type="text"
+             placeholder="Type your text here...">
+    </div>
+  </div>
+</header>
+
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <section id="main">
+
+      <!-- SKRATCH LIST -->
+      <ul id="skratch-list" class="list-group">
+        <li class="list-group-item" ng-repeat="skratch in skratches">
+        <div class="view">
+          <div class="row">
+            <div class="col-md-7 col-xs-8">
+              <div class="text">{{skratch.text}}</div>
+              <span class="date_created">
+                {{skratch.date_created|date:'medium'}}
+              </span>
+            </div>
+        
+            <div class="col-md-5 col-xs-4 controls">
+              <a class="destroy btn btn-danger pull-right">
+                <span class="glyphicon glyphicon-remove-sign"></span>
+              </a>
+              <a class="update btn btn-warning pull-right">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <input class="edit col-md-12" type="text" value="{{skratch.text}}" />
+        </li>
+
+      </ul>
+    </section>
+  </div>
+</div>
+
+<footer>
+</footer>
+</div>
