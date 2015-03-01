@@ -5,6 +5,7 @@ app.directive('skratchpad', function(skratchesFactory) {
     scope: {},
     restrict: 'E',
     replace: true,
+    transclusion: true,
     link: function(scope, elem, attrs){
       skratchesFactory.getAll().then(function(data){
         scope.skratches = data;
@@ -50,8 +51,10 @@ app.directive('skratchpad', function(skratchesFactory) {
 
 app.directive('skratch', function() {
   return {
-    restrict: 'C',
+    restrict: 'E',
+    replace: true,
     require: '^skratchpad',
+    templateUrl: 'skratch.html',
     link: function(scope, elem, attr){
       scope.editing = function() {
         elem.addClass('editing');

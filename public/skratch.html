@@ -1,0 +1,28 @@
+<li class="list-group-item">
+<div class="view">
+  <div class="row">
+    <div class="col-md-7 col-xs-8">
+      <div class="text">{{skratch.text}}</div>
+      <span class="date_created">
+        {{skratch.date_created|date:'medium'}}
+      </span>
+    </div>
+
+    <div class="col-md-5 col-xs-4 controls">
+      <a ng-click="remove()"
+         class="destroy btn btn-danger pull-right">
+        <span class="glyphicon glyphicon-remove-sign"></span>
+      </a>
+      <a ng-click="editing()" class="update btn btn-warning pull-right">
+        <span class="glyphicon glyphicon-pencil"></span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<input class="edit col-md-12" type="text"
+ng-enter="updateSkratch('{{skratch._id}}')"
+ng-blur="doneEditing()"
+value="{{skratch.text}}" />
+</li>
+
